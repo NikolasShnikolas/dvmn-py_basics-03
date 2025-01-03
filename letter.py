@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+mail_from = 'devmanorg@yandex.ru'
+mail_to = 'korsunnikolay@yandex.ru'
+
 message = """\
 Привет, %friend_name%! %my_name% приглашает тебя на сайт %website%!
 
@@ -21,9 +24,9 @@ message = """\
 
 Регистрируйся → %website%
 На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл."""
-letter = """\
-From: devmanorg@yandex.ru
-To: korsunnikolay@yandex.ru
+letter = f"""\
+From: {mail_from}
+To: {mail_to}
 Subject: Приглашение!
 Content-Type: text/plain; charset="UTF-8";\n\n""" + message
 website = 'https://dvmn.org/profession-ref-program/nikolasshnikolas/QZjPq/'
@@ -40,5 +43,5 @@ login = os.getenv('LOGIN')
 password = os.getenv('PASSWORD')
 server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
 server.login(login, password)
-server.sendmail('devmanorg@yandex.ru', 'korsunnikolay@yandex.ru', letter)
+server.sendmail(mail_from, mail_to, letter)
 server.quit()
